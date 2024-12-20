@@ -49,11 +49,6 @@ Code-Editor/
 
 ---
 
-//## 📸 Screenshots  
-//💡 Add your screenshots here to make it look amazing:  
-//![Code Editor Screenshot](https://via.placeholder.com/800x400)  
-//> Replace the placeholder image with your actual project screenshot.  
-
 Check This out Live Deployed link
 https://mukund-code-editor.vercel.app/
 
