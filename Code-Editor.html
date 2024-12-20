@@ -165,34 +165,39 @@
     let OUTPUT = document.querySelector("#OUTPUT");
 
     let allInput = document.querySelectorAll("#leftSide textarea");
-    <!-- this  -->
 
-    let htmlCode,cssCode,jsCode= "";
+    // Variables to store the content of HTML, CSS, and JavaScript from the textarea inputs
+    let htmlCode, cssCode, jsCode = "";
+
+    // Loop through each textarea element and listen for the 'keyup' event
     allInput.forEach((el, index) => {
         el.addEventListener("keyup", () => {
+            // Assign the content of the respective textarea to the corresponding variable
             if(index == 0){
-                htmlCode = el.value;
+                htmlCode = el.value;  // Assign HTML content
             }
             if(index == 1){
-                cssCode = el.value;
+                cssCode = el.value;   // Assign CSS content
             }
             if(index == 2){
-                jsCode = el.value;
+                jsCode = el.value;    // Assign JavaScript content
             }
 
+            // This is where the magic happens - each code is applied to the iframe
+            // 1. OUTPUT.contentDocument.body.innerHTML = htmlCode;
+            //    - Sets the HTML content of the iframe body. The content of the HTML textarea is assigned to the body of the iframe.
             OUTPUT.contentDocument.body.innerHTML = htmlCode;
 
+            // 2. OUTPUT.contentDocument.head.innerHTML = `<style>${cssCode}</style>`;
+            //    - Adds the CSS content inside a <style> tag in the head of the iframe document.
+            //    - This dynamically styles the HTML content inside the iframe according to the CSS input.
             OUTPUT.contentDocument.head.innerHTML = `<style>${cssCode}</style>`;
 
+            // 3. OUTPUT.contentWindow.eval(jsCode);
+            //    - Executes the JavaScript code inside the iframe's window context.
+            //    - This allows dynamic behavior (like functions, interactions, etc.) to be applied to the HTML content.
             OUTPUT.contentWindow.eval(jsCode);
         });
     })
-
-
   </script>
-  <!-- OUTPUT.contentDocument.body.innerHTML = "<h1>Hello World</h1>";
-
-  OUTPUT.contentDocument.head.innerHTML = "<style>h1{color: white;}</style>";
-
-  OUTPUT.contentWindow.eval('let a = 10; let b = 20; alert(a + b);'); -->
 </html>
