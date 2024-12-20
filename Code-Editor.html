@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code-Editor</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: poppins, Verdana, Geneva, Tahoma, sans-serif !important;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        background-color: #00091b;
+        background: hsla(220, 100%, 5%, 1);
+
+        background: linear-gradient(
+          135deg,
+          hsla(220, 100%, 5%, 1) 0%,
+          hsla(271, 100%, 14%, 1) 100%
+        );
+
+        background: -moz-linear-gradient(
+          135deg,
+          hsla(220, 100%, 5%, 1) 0%,
+          hsla(271, 100%, 14%, 1) 100%
+        );
+
+        background: -webkit-linear-gradient(
+          135deg,
+          hsla(220, 100%, 5%, 1) 0%,
+          hsla(271, 100%, 14%, 1) 100%
+        );
+
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#00091b", endColorstr="#240046", GradientType=1 );
+      }
+
+      #leftSide {
+        flex-basis: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #10002b;
+        background: hsla(271, 100%, 14%, 1);
+
+        background: linear-gradient(
+          360deg,
+          hsla(271, 100%, 14%, 1) 0%,
+          hsla(262, 100%, 8%, 1) 100%
+        );
+
+        background: -moz-linear-gradient(
+          360deg,
+          hsla(271, 100%, 14%, 1) 0%,
+          hsla(262, 100%, 8%, 1) 100%
+        );
+
+        background: -webkit-linear-gradient(
+          360deg,
+          hsla(271, 100%, 14%, 1) 0%,
+          hsla(262, 100%, 8%, 1) 100%
+        );
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#240046", endColorstr="#10002B", GradientType=1 );
+      }
+
+      .code {
+          flex-basis: 33%;
+          background-color: transparent;
+          
+      }
+      #leftSide .code textarea{
+        width: calc(100% - 20px);
+        margin-left: 2%;
+        padding: 10px;
+        height: calc(85% - 20px);
+        background-color: transparent;
+        outline: none;
+        color: whitesmoke;
+        border-radius: 2px solid transparent;
+      } 
+      #leftSide .code label {
+        text-align: center;
+        font-size: medium;
+        display: block;
+        background-color: transparent;
+        color: whitesmoke;
+        padding: 10px 0px;
+      }
+      #rightSide {
+        flex-basis: 50%;
+        height: 100%;
+        background-color: #240046;
+        background: hsla(271, 100%, 11%, 1);
+
+        background: linear-gradient(
+          225deg,
+          hsla(271, 100%, 11%, 1) 0%,
+          hsla(270, 92%, 9%, 1) 100%
+        );
+
+        background: -moz-linear-gradient(
+          225deg,
+          hsla(271, 100%, 11%, 1) 0%,
+          hsla(270, 92%, 9%, 1) 100%
+        );
+
+        background: -webkit-linear-gradient(
+          225deg,
+          hsla(271, 100%, 11%, 1) 0%,
+          hsla(270, 92%, 9%, 1) 100%
+        );
+
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#1D0038", endColorstr="#18022E", GradientType=1 );
+      }
+
+      #rightSide label {
+        text-align: center;
+        font-size: medium;
+        display: block;
+        background-color: transparent;
+        color: whitesmoke;
+        padding: 10px;
+        margin: 2%;
+      }
+      #rightSide iframe {
+        display: block;
+        width: 100%;
+        padding-left: 2%;
+        border: 2px solid whitesmoke;
+        box-sizing: border-box;
+        height: 90%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="leftSide">
+      <div class="code">
+        <label for="HTML">HTML</label>
+        <textarea name="HTML" id=""></textarea>
+      </div>
+
+      <div class="code">
+        <label for="CSS">CSS</label>
+        <textarea name="CSS" id=""></textarea>
+      </div>
+
+      <div class="code">
+        <label for="JAVASCRIPT">JAVASCRIPT</label>
+        <textarea name="JAVASCRIPT" id=""></textarea>
+      </div>
+    </div>
+
+    <div id="rightSide">
+        <label for="OUTPUT">OUTPUT</label>
+        <iframe id="OUTPUT" src="" frameborder="0"></iframe>
+    </div>
+  </body>
+  <script>
+    let OUTPUT = document.querySelector("#OUTPUT");
+
+    let allInput = document.querySelectorAll("#leftSide textarea");
+    <!-- this  -->
+
+    let htmlCode,cssCode,jsCode= "";
+    allInput.forEach((el, index) => {
+        el.addEventListener("keyup", () => {
+            if(index == 0){
+                htmlCode = el.value;
+            }
+            if(index == 1){
+                cssCode = el.value;
+            }
+            if(index == 2){
+                jsCode = el.value;
+            }
+
+            OUTPUT.contentDocument.body.innerHTML = htmlCode;
+
+            OUTPUT.contentDocument.head.innerHTML = `<style>${cssCode}</style>`;
+
+            OUTPUT.contentWindow.eval(jsCode);
+        });
+    })
+
+
+  </script>
+  <!-- OUTPUT.contentDocument.body.innerHTML = "<h1>Hello World</h1>";
+
+  OUTPUT.contentDocument.head.innerHTML = "<style>h1{color: white;}</style>";
+
+  OUTPUT.contentWindow.eval('let a = 10; let b = 20; alert(a + b);'); -->
+</html>
